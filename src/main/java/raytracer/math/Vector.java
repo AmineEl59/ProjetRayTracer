@@ -1,4 +1,4 @@
-package math;
+package raytracer.math;
 
 public class Vector extends AbstractVec3 {
 

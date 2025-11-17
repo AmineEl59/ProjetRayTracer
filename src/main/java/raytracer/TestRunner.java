@@ -1,9 +1,9 @@
 package raytracer;
 
-import math.AbstractVec3;
-import math.Vector;
-import math.Point;
-import math.Color;
+import raytracer.math.AbstractVec3;
+import raytracer.math.Vector;
+import raytracer.math.Point;
+import raytracer.math.Color;
 
 /**
  * Cette classe sert à tester notre "boîte à outils" mathématique.
