@@ -13,15 +13,15 @@ import raytracer.scene.Camera;
 import raytracer.scene.Scene;
 
 /**
- * Le "Parser" : lit un fichier de description de scène (.txt)
- * et construit un objet Scene avec tous les éléments. 
- */
+  Le "Parser" : lit un fichier de description de scène (.txt)
+  et construit un objet Scene avec tous les éléments. 
+ **/
 public class SceneFileParser {
 
     private Scene scene;
     private int lineNumber = 0;
 
-    // États courants (gardés en mémoire pendant la lecture)
+    // États courants
     private Color currentDiffuse = new Color(0, 0, 0);
     private Color currentSpecular = new Color(0, 0, 0);
     private Color totalLightColor = new Color(0, 0, 0);
@@ -33,8 +33,8 @@ public class SceneFileParser {
     private boolean cameraSet = false;
 
     /**
-     * Méthode principale : lit le fichier et renvoie la Scène.
-     */
+     Méthode principale : lit le fichier et renvoie la Scène.
+     **/
     public Scene parse(String filePath) throws IOException, SceneParseException {
         this.scene = new Scene();
         this.lineNumber = 0;
@@ -43,14 +43,14 @@ public class SceneFileParser {
             String line;
             while ((line = reader.readLine()) != null) {
                 lineNumber++;
-                line = line.trim(); // 
+                line = line.trim(); /
 
                 // Ignorer les lignes vides ou les commentaires 
                 if (line.isEmpty() || line.startsWith("#")) {
                     continue;
                 }
 
-                // Sépare la ligne par des espaces (un ou plusieurs)
+                // Sépare la ligne par des espaces
                 String[] parts = line.split("\\s+"); // 
                 String command = parts[0];
 
@@ -59,14 +59,14 @@ public class SceneFileParser {
             }
         }
 
-        // --- Validation après lecture ---
+        //  Validation après lecture
         if (!sizeSet) {
-            throw new SceneParseException("La commande 'size' est obligatoire."); // [cite: 256]
+            throw new SceneParseException("La commande 'size' est obligatoire.");
         }
         if (!cameraSet) {
-            throw new SceneParseException("La commande 'camera' est obligatoire."); // 
-        }
-        // Valide la somme des lumières [cite: 297, 298]
+            throw new SceneParseException("La commande 'camera' est obligatoire."); 
+           }
+        // Valide la somme des lumières
         if (totalLightColor.getR() > 1.0 || totalLightColor.getG() > 1.0 || totalLightColor.getB() > 1.0) {
             throw new SceneParseException("La somme des couleurs des lumières dépasse 1.0.");
         }
@@ -75,8 +75,8 @@ public class SceneFileParser {
     }
 
     /**
-     * Aiguille vers la bonne méthode de parsing en fonction de la commande.
-     */
+     Aiguille vers la bonne méthode de parsing en fonction de la commande.
+     **/
     private void processCommand(String command, String[] parts) throws SceneParseException {
         try {
             switch (command) {
@@ -114,7 +114,7 @@ public class SceneFileParser {
 
                 // Géométrie
                 case "maxverts":
-                    this.maxVerts = pInt(parts[1]); // [cite: 312]
+                    this.maxVerts = pInt(parts[1]);
                     break;
                 case "vertex":
                     this.vertices.add(parsePoint(parts, 1));
@@ -142,62 +142,62 @@ public class SceneFileParser {
         }
     }
 
-    // --- Méthodes de Parsing Détaillées ---
+    //  Méthodes de Parsing Détaillées 
 
     private void parseSize(String[] parts) {
-        scene.setDimensions(pInt(parts[1]), pInt(parts[2])); // [cite: 258]
+        scene.setDimensions(pInt(parts[1]), pInt(parts[2]));
     }
 
     private void parseOutput(String[] parts) {
-        scene.setOutputName(parts[1]); // [cite: 262]
+        scene.setOutputName(parts[1]);
     }
 
     private void parseCamera(String[] parts) {
-        Point lookFrom = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3])); // [cite: 266]
-        Point lookAt = new Point(pD(parts[4]), pD(parts[5]), pD(parts[6])); // [cite: 266]
-        Vector up = new Vector(pD(parts[7]), pD(parts[8]), pD(parts[9])); // [cite: 266]
-        double fov = pD(parts[10]); // [cite: 266]
+        Point lookFrom = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3]));
+        Point lookAt = new Point(pD(parts[4]), pD(parts[5]), pD(parts[6]));
+        Vector up = new Vector(pD(parts[7]), pD(parts[8]), pD(parts[9]));
+        double fov = pD(parts[10]);
         scene.setCamera(new Camera(lookFrom, lookAt, up, fov));
     }
 
     private void parseAmbient(String[] parts) {
-        scene.setAmbientColor(parseColor(parts)); // [cite: 271]
+        scene.setAmbientColor(parseColor(parts));
     }
 
     private void parseDirectionalLight(String[] parts) throws SceneParseException {
-        Vector dir = new Vector(pD(parts[1]), pD(parts[2]), pD(parts[3])); // [cite: 289]
-        Color color = new Color(pD(parts[4]), pD(parts[5]), pD(parts[6])); // [cite: 289]
+        Vector dir = new Vector(pD(parts[1]), pD(parts[2]), pD(parts[3]));
+        Color color = new Color(pD(parts[4]), pD(parts[5]), pD(parts[6]));
         validateLightColor(color); // 
         scene.addLight(new DirectionalLight(dir, color));
     }
 
     private void parsePointLight(String[] parts) throws SceneParseException {
-        Point pos = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3])); // [cite: 293]
-        Color color = new Color(pD(parts[4]), pD(parts[5]), pD(parts[6])); // [cite: 294]
+        Point pos = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3]));
+        Color color = new Color(pD(parts[4]), pD(parts[5]), pD(parts[6]));
         validateLightColor(color); // 
         scene.addLight(new PointLight(pos, color));
     }
 
     private void parseSphere(String[] parts) throws SceneParseException {
-        Point center = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3])); // 
+        Point center = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3]));
         double radius = pD(parts[4]); // 
-        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse); // [cite: 274, 275]
+        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse);
         scene.addShape(new Sphere(center, radius, this.currentDiffuse, this.currentSpecular));
     }
 
     private void parsePlane(String[] parts) throws SceneParseException {
-        Point point = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3])); // 
-        Vector normal = new Vector(pD(parts[4]), pD(parts[5]), pD(parts[6])); // 
-        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse); // [cite: 274, 275]
+        Point point = new Point(pD(parts[1]), pD(parts[2]), pD(parts[3]));
+        Vector normal = new Vector(pD(parts[4]), pD(parts[5]), pD(parts[6]));
+        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse);
         scene.addShape(new Plane(point, normal, this.currentDiffuse, this.currentSpecular));
     }
 
     private void parseTriangle(String[] parts) throws SceneParseException {
-        int i1 = pInt(parts[1]); // [cite: 324]
-        int i2 = pInt(parts[2]); // [cite: 324]
-        int i3 = pInt(parts[3]); // [cite: 324]
+        int i1 = pInt(parts[1]);
+        int i2 = pInt(parts[2]);
+        int i3 = pInt(parts[3]);
 
-        // Valider les indices [cite: 329]
+        // Valider les indices
         if (i1 >= maxVerts || i2 >= maxVerts || i3 >= maxVerts || i1 < 0 || i2 < 0 || i3 < 0) {
             throw new SceneParseException("Indice de sommet invalide (maxverts=" + maxVerts + ").", lineNumber);
         }
@@ -206,11 +206,11 @@ public class SceneFileParser {
         Point p2 = this.vertices.get(i2);
         Point p3 = this.vertices.get(i3);
 
-        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse); // [cite: 274, 275]
+        validateAmbientDiffuseSum(scene.getAmbientColor(), this.currentDiffuse);
         scene.addShape(new Triangle(p1, p2, p3, this.currentDiffuse, this.currentSpecular));
     }
 
-    // --- Méthodes Utilitaires ---
+    // Méthodes Utilitaires
 
     private Color parseColor(String[] parts) {
         return new Color(pD(parts[1]), pD(parts[2]), pD(parts[3]));
@@ -225,12 +225,12 @@ public class SceneFileParser {
         return Double.parseDouble(s);
     }
 
-    // Raccourci pour Integer.parseInt [cite: 352]
+    // Raccourci pour Integer.parseInt
     private int pInt(String s) {
         return Integer.parseInt(s);
     }
 
-    // --- Méthodes de Validation ---
+    // Méthodes de Validation
 
     private void validateLightColor(Color newLight) {
         // Ajoute la nouvelle couleur de lumière au total 
@@ -239,7 +239,7 @@ public class SceneFileParser {
     }
 
     private void validateAmbientDiffuseSum(Color ambient, Color diffuse) throws SceneParseException {
-        // Vérifie que (ambient + diffuse) <= 1.0 [cite: 274, 275, 279]
+        // Vérifie que (ambient + diffuse) <= 1.0
         if ((ambient.getR() + diffuse.getR() > 1.0) ||
             (ambient.getG() + diffuse.getG() > 1.0) ||
             (ambient.getB() + diffuse.getB() > 1.0)) {

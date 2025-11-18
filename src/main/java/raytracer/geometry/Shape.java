@@ -3,13 +3,13 @@ package raytracer.geometry;
 import raytracer.math.Color;
 
 /**
- 
-Classe "mère" abstraite pour toutes les formes géométriques.
-Elle contient les propriétés de matériaux communes (couleurs). [cite: 366, 367]*/
+ Classe "mère" abstraite pour toutes les formes géométriques.
+ Elle contient les propriétés de matériaux communes (couleurs).
+**/
 public abstract class Shape {
 
     protected final Color diffuse;   // Couleur de base de l'objet 
-    protected final Color specular;  // Couleur du reflet "miroir" [cite: 273]
+    protected final Color specular;  // Couleur du reflet "miroir"
 
     public Shape(Color diffuse, Color specular) {
         this.diffuse = diffuse;

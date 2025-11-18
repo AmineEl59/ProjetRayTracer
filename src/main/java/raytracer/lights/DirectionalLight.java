@@ -4,12 +4,12 @@ import raytracer.math.Color;
 import raytracer.math.Vector;
 
 /**
- 
-Une source de lumière directionnelle (type "soleil"). [cite: 287, 288]
-A une couleur et une direction.*/
+Une source de lumière directionnelle (type "soleil").
+A une couleur et une direction.
+**/
 public class DirectionalLight extends AbstractLight {
 
-    private final Vector direction; // Vecteur de direction (x, y, z) [cite: 289]
+    private final Vector direction; // Vecteur de direction (x, y, z)
 
     public DirectionalLight(Vector direction, Color color) {
         super(color);

@@ -46,22 +46,22 @@ public class Vector extends AbstractVec3 {
     }
     
     /**
-     * Produit de Schur (multiplication composante par composante).
-     */
+     Produit de Schur (multiplication composante par composante).
+    **/
     public Vector schur(Vector v) {
         return new Vector(this.x * v.x, this.y * v.y, this.z * v.z);
     }
 
     /**
-     * Calcule la longueur (magnitude) du vecteur.
-     */
+     Calcule la longueur (magnitude) du vecteur.
+    **/
     public double length() {
         return Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
     }
 
     /**
-     * Normalise le vecteur (le rend de longueur 1).
-     */
+      Normalise le vecteur (le rend de longueur 1).
+    **/
     public Vector normalize() {
         double len = this.length();
         if (len == 0) {

@@ -4,9 +4,9 @@ import raytracer.math.Color;
 import raytracer.math.Point;
 
 /**
- 
-Représente un objet Sphère. [cite: 301, 305]
-Hérite de Shape (pour les couleurs) et ajoute un centre et un rayon.*/
+ Représente un objet Sphère.
+ Hérite de Shape (pour les couleurs) et ajoute un centre et un rayon.
+**/
 public class Sphere extends Shape {
 
     private final Point center; // Centre (x, y, z) 

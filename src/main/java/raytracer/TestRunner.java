@@ -6,9 +6,9 @@ import raytracer.math.Point;
 import raytracer.math.Color;
 
 /**
- * Cette classe sert à tester notre "boîte à outils" mathématique.
- * Elle contient son propre "main" pour être lancée.
- */
+ Cette classe sert à tester notre "boîte à outils" mathématique.
+ Elle contient son propre "main" pour être lancée.
+**/
 public class TestRunner {
 
     private static int testsPassed = 0;
@@ -17,7 +17,7 @@ public class TestRunner {
     public static void main(String[] args) {
         System.out.println("--- Lancement des tests pour le Calcul Vectoriel ---");
 
-        // --- Tests pour la classe Vector ---
+        // Tests pour la classe Vector
         testVectorAddition();
         testVectorSubtraction();
         testVectorScalarMultiply();
@@ -26,25 +26,25 @@ public class TestRunner {
         testVectorLength();
         testVectorNormalize();
         
-        // --- Tests pour la classe Point ---
+        //  Tests pour la classe Point
         testPointSubtract();
         testPointAddVector();
 
-        // --- Tests pour la classe Color ---
+        //  Tests pour la classe Color
         testColorCreationAndClamping();
         testColorOperations();
         testColorToRGB();
 
         System.out.println("--------------------------------------------------");
         if (testsFailed == 0) {
-            System.out.println("✅ SUCCÈS : Tous les " + testsPassed + " tests sont passés !");
+            System.out.println("succès : Tous les " + testsPassed + " tests sont passés !");
         } else {
-            System.out.println("❌ ÉCHEC : " + testsFailed + " test(s) échoué(s) sur " + (testsPassed + testsFailed));
+            System.out.println("échec : " + testsFailed + " test(s) échoué(s) sur " + (testsPassed + testsFailed));
         }
         System.out.println("--------------------------------------------------");
     }
 
-    // --- Les Tests Individuels ---
+    // Les Tests Individuels
 
     private static void testVectorAddition() {
         Vector v1 = new Vector(1, 2, 3);
@@ -143,11 +143,11 @@ public class TestRunner {
     }
 
 
-    // --- Méthodes Aides pour les Tests ---
+    // Méthodes Aides pour les Tests
 
     /**
-     * Affiche le résultat d'un test pour les objets (Vector, Point, Color).
-     */
+     Affiche le résultat d'un test pour les objets (Vector, Point, Color).
+    **/
     private static void test(boolean success, String testName) {
         if (success) {
             System.out.println("  [PASS] " + testName);
@@ -159,8 +159,8 @@ public class TestRunner {
     }
 
     /**
-     * Affiche le résultat d'un test pour les 'double' (Produit Scalaire, Longueur).
-     */
+      Affiche le résultat d'un test pour les 'double' (Produit Scalaire, Longueur).
+    **/
     private static void testDouble(double expected, double result, String testName) {
         // On compare les 'double' avec la marge d'erreur (EPSILON)
         if (Math.abs(expected - result) <= AbstractVec3.EPSILON) {

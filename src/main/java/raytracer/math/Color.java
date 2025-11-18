@@ -1,4 +1,4 @@
-package math;
+package raytracer.math;
 
 public class Color extends AbstractVec3 {
 

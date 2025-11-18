@@ -1,9 +1,9 @@
 package raytracer.parsing;
 
 /**
- 
 Une exception personnalisée pour les erreurs lors de la lecture
-du fichier de scène. */
+du fichier de scène. 
+**/
 public class SceneParseException extends Exception {
 
     public SceneParseException(String message) {

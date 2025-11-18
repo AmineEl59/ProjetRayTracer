@@ -1,10 +1,10 @@
-package math;
+package raytracer.math;
 
 /**
- * Classe de base abstraite pour les éléments à 3 composantes (Vector, Point, Color).
- * Contient les composantes x, y, z (qui peuvent être r, g, b pour les couleurs)
- * et la logique de comparaison pour les 'double'. 
- */
+ Classe de base abstraite pour les éléments à 3 composantes (Vector, Point, Color).
+ Contient les composantes x, y, z (qui peuvent être r, g, b pour les couleurs)
+ et la logique de comparaison pour les 'double'. 
+**/
 public abstract class AbstractVec3 {
 
     // Epsilon pour la comparaison des 'double' [cite: 127, 128]
