@@ -2,8 +2,9 @@
 ## 🐲 Moteur de Rendu par RayTracer en Java
 
 Ce projet est une implémentation complète d'un Ray Tracer en Java, capable de simuler l'illumination, les ombres, les réflexions et les propriétés de matériaux pour des scènes 3D complexes.
-
 ---
+
+Le fichier .jar se trouve dans le dossier target après avoir compilé le code, et les fichiers .png se trouvent à la racine.
 
 ### 🚀 Démarrage Rapide
 
@@ -14,7 +15,6 @@ Si vous voulez tester la scène bonus, il faut remplacer le contenu du fichier f
 ```bash
 mvn clean install && java -jar target/raytracer.jar
 ```
-Le fichier .jar se trouve dans le dossier target après avoir compilé le code, et les fichiers .png se trouvent à la racine.
 
 ---
 
