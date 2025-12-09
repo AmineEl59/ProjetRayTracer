@@ -94,7 +94,6 @@ public class ImageComparator {
      * @return La valeur RGB représentant la différence de couleur.
      */
     private int calculateColorDifference(int rgb1, int rgb2) {
-        // Extraire les composantes
         int r1 = (rgb1 >> 16) & 0xFF;
         int g1 = (rgb1 >> 8) & 0xFF;
         int b1 = (rgb1) & 0xFF;

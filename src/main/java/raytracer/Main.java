@@ -27,7 +27,7 @@ public class Main {
         ImageRenderer renderer = new ImageRenderer();
 
         try {
-            System.out.println("--- Jalon 2: Lecture de la scène ---");
+            System.out.println("Lecture de la scène");
             Scene scene = parser.parse(sceneFilePath);
             System.out.println("Lecture de la scène réussie.");
 
@@ -35,7 +35,7 @@ public class Main {
                 throw new SceneParseException("La caméra n'est pas définie dans le fichier de scène.");
             }
 
-            System.out.println("--- Jalon 5: Rendu de l'image (Ombres + Blinn-Phong) ---");
+            System.out.println("Rendu de l'image");
             renderer.render(scene); // Lancement du rendu
 
         } catch (IOException e) {

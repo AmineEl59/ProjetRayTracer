@@ -12,21 +12,15 @@ public final class Ray {
         this.direction = direction.normalize();
     }
 
-    public Point getOrigin() {
-        return origin;
-    }
-
-    public Vector getDirection() {
-        return direction;
-    }
+    public Point getOrigin() { return origin; }
+    public Vector getDirection() { return direction; }
 
     /**
-     * Calcule le point sur le rayon à la distance t.
-     * Formule: p = o + d * t
+     * Calcule le point sur le rayon à la distance t. (Formule: p = o + d * t)
      * @param t La distance scalaire le long du rayon.
      * @return Le Point correspondant à cette distance.
      */
-    public Point getPointAt(double t) {
+    public Point pointAt(double t) {
         return origin.add(direction.multiply(t));
     }
 }

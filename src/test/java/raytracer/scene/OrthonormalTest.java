@@ -4,8 +4,6 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 import raytracer.math.Vector;
 import raytracer.math.Point;
-// La classe Orthonormal est définie dans le package raytracer.scene dans votre code source
-import raytracer.scene.Orthonormal;
 
 class OrthonormalTest {
     private static final double EPSILON = 1e-6;

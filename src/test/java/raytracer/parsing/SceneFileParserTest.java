@@ -2,8 +2,6 @@ package raytracer.parsing;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import raytracer.parsing.SceneFileParser;
-import raytracer.parsing.SceneParseException;
 import raytracer.scene.Scene;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -12,7 +10,6 @@ import java.nio.file.Path;
 public class SceneFileParserTest {
     private static final double EPSILON = 1e-6;
 
-    // Utilitaire pour créer un fichier de scène temporaire et le parser
     private Scene parseTempScene(String content) throws IOException, SceneParseException {
         Path tempFile = Files.createTempFile("testscene", ".scene");
         Files.writeString(tempFile, content);

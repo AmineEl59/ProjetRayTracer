@@ -17,7 +17,6 @@ public final class Sphere extends Shape {
         this.radius = radius;
     }
 
-    // ... (Intersect reste inchangé) ...
     @Override
     public Optional<Intersection> intersect(Ray ray) {
         Point o = ray.getOrigin();
@@ -56,7 +55,7 @@ public final class Sphere extends Shape {
             return Optional.empty();
         }
 
-        Point p = ray.getPointAt(tClosest);
+        Point p = ray.pointAt(tClosest);
         return Optional.of(new Intersection(tClosest, p, this));
     }
 
@@ -66,9 +65,7 @@ public final class Sphere extends Shape {
      */
     @Override
     public Vector getNormal(Point p) {
-        // Vecteur P - C
         Vector normalUnnormalized = p.subtract(this.center);
-        // Normalisation
         return normalUnnormalized.normalize();
     }
 }

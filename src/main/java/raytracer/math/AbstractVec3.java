@@ -21,13 +21,17 @@ public abstract class AbstractVec3 {
         this.z = z;
     }
 
-    // --- Accesseurs ---
+    public double getX() {
+        return x;
+    }
 
-    public double getX() { return x; }
-    public double getY() { return y; }
-    public double getZ() { return z; }
+    public double getY() {
+        return y;
+    }
 
-    // --- Méthodes Utilitaires ---
+    public double getZ() {
+        return z;
+    }
 
     /**
      * Multiplie les composantes par un scalaire d.
@@ -60,5 +64,4 @@ public abstract class AbstractVec3 {
     public AbstractVec3 schurProduct(AbstractVec3 other) {
         return new Vector(this.x * other.x, this.y * other.y, this.z * other.z);
     }
-
 }

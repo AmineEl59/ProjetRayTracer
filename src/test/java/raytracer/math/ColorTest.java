@@ -56,7 +56,6 @@ class ColorTest {
         assertEquals(0.8, result.getB(), DELTA);
     }
 
-
     @Test
     void testToRGB_ClampingAndScaling() {
         Color color = new Color(0.5, 1.5, -0.1);

@@ -2,7 +2,6 @@ package raytracer.scene;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import raytracer.scene.Scene;
 import raytracer.math.Color;
 import raytracer.light.PointLight;
 import raytracer.geometry.Sphere;

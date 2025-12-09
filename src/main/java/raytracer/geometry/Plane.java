@@ -7,6 +7,8 @@ import raytracer.trace.Intersection;
 import java.util.Optional;
 
 public final class Plane extends Shape {
+    private static final double EPSILON = 1e-6;
+
     private final Point point;
     private final Vector normal;
 
@@ -16,23 +18,41 @@ public final class Plane extends Shape {
         this.normal = normal.normalize();
     }
 
-    public Point getPoint() { return point; }
-    public Vector getNormal() { return normal; }
+    public Point getPoint() {
+        return point;
+    }
 
-    /**
-     * JALON 3/6: Implémentation de l'intersection Rayon-Plan.
-     * Maintenue comme placeholder pour l'instant (Jalon 4 ne concerne que les sphères).
-     */
-    @Override
-    public Optional<Intersection> intersect(Ray ray) {
-        // L'implémentation viendra aux jalons suivants.
-        return Optional.empty();
+    public Vector getNormal() {
+        return normal;
     }
 
     /**
-     * JALON 4: Calcule la normale unitaire à la surface du plan au point P.
-     * Pour un plan, la normale est constante partout.
-     * Le point P est ignoré.
+     * Implémentation de l'intersection Rayon-Plan.
+     */
+    @Override
+    public Optional<Intersection> intersect(Ray ray) {
+
+        double denom = ray.getDirection().dot(this.normal);
+
+        if (Math.abs(denom) < EPSILON) {
+            return Optional.empty();
+        }
+
+        Vector qMinusO = this.point.subtract(ray.getOrigin());
+        double numer = qMinusO.dot(this.normal);
+
+        double t = numer / denom;
+
+        if (t <= EPSILON) {
+            return Optional.empty();
+        }
+
+        Point p = ray.pointAt(t);
+        return Optional.of(new Intersection(t, p, this));
+    }
+
+    /**
+     * Calcule la normale unitaire à la surface du plan au point P (constante).
      */
     @Override
     public Vector getNormal(Point p) {

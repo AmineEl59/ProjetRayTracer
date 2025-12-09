@@ -2,7 +2,6 @@ package raytracer.scene;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
-import raytracer.scene.Camera;
 import raytracer.math.Point;
 import raytracer.math.Vector;
 

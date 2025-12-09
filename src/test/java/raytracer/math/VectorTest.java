@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class VectorTest {
 
-    private static final double DELTA = 1e-9; // Précision pour les comparaisons en double
+    private static final double DELTA = 1e-9;
 
     @Test
     void testAdd() {

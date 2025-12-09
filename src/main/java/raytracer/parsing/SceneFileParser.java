@@ -26,6 +26,8 @@ public class SceneFileParser {
     private Color lastSpecular = new Color();
     private double lastShininess = 10.0;
 
+    private int maxDepth = 1;
+
     /**
      * Lit le fichier et retourne un objet Scene peuplé.
      */
@@ -50,6 +52,7 @@ public class SceneFileParser {
         }
 
         checkLightSumConstraint(scene);
+        scene.setMaxDepth(this.maxDepth);
 
         return scene;
     }
@@ -88,16 +91,21 @@ public class SceneFileParser {
                     scene.setAmbient(ambient);
                     break;
                 case "diffuse":
-                    lastDiffuse = parseColor(tokens, 1);
-                    if (scene.getAmbient().checkSumExceedsOne(lastDiffuse)) {
+                    Color newDiffuse = parseColor(tokens, 1);
+
+                    if (scene.getAmbient().checkSumExceedsOne(newDiffuse)) {
                         throw new SceneParseException("CONTRAINTE DE COULEUR: ambient + diffuse dépasse 1.0. Ligne: " + line);
                     }
+                    lastDiffuse = newDiffuse;
                     break;
                 case "specular":
                     lastSpecular = parseColor(tokens, 1);
                     break;
                 case "shininess":
                     lastShininess = Double.parseDouble(tokens[1]);
+                    break;
+                case "maxdepth":
+                    this.maxDepth = Integer.parseInt(tokens[1]);
                     break;
                 case "directional":
                     Vector direction = parseVector(tokens, 1);
@@ -141,12 +149,15 @@ public class SceneFileParser {
                     Triangle tri = new Triangle(a, b, c);
                     applyLastColors(tri);
                     scene.addShape(tri);
+                    tri.setScene(scene);
                     break;
                 default:
                     break;
             }
         } catch (NumberFormatException e) {
             throw new SceneParseException("Erreur de format de nombre: La ligne contient un argument non valide. Ligne: " + line);
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new SceneParseException("Erreur de format de ligne: Nombre d'arguments insuffisant pour la commande '" + command + "'. Ligne: " + line);
         }
     }
 
@@ -168,6 +179,9 @@ public class SceneFileParser {
         shape.setShininess(lastShininess);
     }
 
+    /**
+     * Vérifie la contrainte de la somme des lumières directes (point et directional).
+     */
     private void checkLightSumConstraint(Scene scene) throws SceneParseException {
         Color totalLightColor = new Color();
         for (AbstractLight light : scene.getLights()) {

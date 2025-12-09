@@ -8,15 +8,12 @@ import raytracer.trace.Intersection;
 import java.util.Optional;
 
 /**
- * Représente un triangle, défini par les indices de trois sommets (vertices)
- * stockés dans la Scene.
+ * Représente un triangle, implémentant l'algorithme d'intersection Möller–Trumbore (Jalon 6 Bonus).
  */
 public final class Triangle extends Shape {
-    private static final double EPSILON = 1e-6; // Constante de précision
+    private static final double EPSILON = 1e-6;
 
     private final int indexA, indexB, indexC;
-
-    /** Référence à la scène pour pouvoir récupérer les coordonnées des sommets. */
     private Scene scene;
 
     public Triangle(int indexA, int indexB, int indexC) {
@@ -30,25 +27,74 @@ public final class Triangle extends Shape {
         this.scene = scene;
     }
 
-    private Point getVertexA() { return scene.getVertices().get(indexA); }
-    private Point getVertexB() { return scene.getVertices().get(indexB); }
-    private Point getVertexC() { return scene.getVertices().get(indexC); }
+    private Point getVertexA() {
+        return scene.getVertices().get(indexA);
+    }
 
-    public int getIndexA() { return indexA; }
-    public int getIndexB() { return indexB; }
-    public int getIndexC() { return indexC; }
+    private Point getVertexB() {
+        return scene.getVertices().get(indexB);
+    }
+
+    private Point getVertexC() {
+        return scene.getVertices().get(indexC);
+    }
 
     /**
-     * Ajout de la logique d'intersection.
-     * Le test 'testIntersect_CenterHit' attend une intersection trouvée (t > EPSILON).
+     * Implémentation de l'intersection Rayon-Triangle (Algorithme Möller–Trumbore)
      */
     @Override
     public Optional<Intersection> intersect(Ray ray) {
-        return Optional.empty();
+        Point a = getVertexA();
+        Point b = getVertexB();
+        Point c = getVertexC();
+
+        Vector edge1 = b.subtract(a);
+        Vector edge2 = c.subtract(a);
+        Vector p = ray.getDirection().cross(edge2);
+
+        double det = edge1.dot(p);
+
+        if (Math.abs(det) < EPSILON) {
+            return Optional.empty();
+        }
+
+        double invDet = 1.0 / det;
+
+        Vector t = ray.getOrigin().subtract(a);
+        double beta = t.dot(p) * invDet;
+
+        if (beta < 0 || beta > 1) {
+            return Optional.empty();
+        }
+
+        Vector q = t.cross(edge1);
+        double gamma = ray.getDirection().dot(q) * invDet;
+
+        if (gamma < 0 || beta + gamma > 1) {
+            return Optional.empty();
+        }
+
+        double distanceT = edge2.dot(q) * invDet;
+
+        if (distanceT < EPSILON) {
+            return Optional.empty();
+        }
+
+        Point hitPoint = ray.pointAt(distanceT);
+
+        return Optional.of(new Intersection(distanceT, hitPoint, this));
     }
 
+    /**
+     * Calcule la normale unitaire du triangle (produit vectoriel des deux arêtes).
+     */
     @Override
     public Vector getNormal(Point p) {
-        return new Vector(0, 0, 1).normalize();
+        Vector edge1 = getVertexB().subtract(getVertexA());
+        Vector edge2 = getVertexC().subtract(getVertexA());
+
+        Vector normal = edge1.cross(edge2);
+
+        return normal.normalize();
     }
 }
